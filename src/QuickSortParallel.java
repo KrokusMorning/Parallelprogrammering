@@ -3,30 +3,17 @@ import java.util.concurrent.*;
 public class QuickSortParallel extends Thread {
 
     int[] array;
-    int left;
-    int right;
+    int l;
+    int r;
 
-    QuickSortParallel(int[] array, String name, int left, int right) {
-        super(name);
+
+    QuickSortParallel(int[] array, int left, int right) {
         this.array = array;
-        this.left = left;
-        this.right = right;
+        this.l = left;
+        this.r = right;
     }
     public void run(){
-        quickSort(array, left, right);
-        /*int index = partition(array, left, right);
-
-        if (left < index - 1) {
-            right = index - 1;
-            //QuickSortParallel qs1 = new QuickSortParallel(array, "a", left, right);
-            start();
-
-        }
-        if (index < right){
-            left = index;
-            //QuickSortParallel qs2 = new QuickSortParallel(array, "b", left, right);
-            start();
-        }*/
+        quickSort(array, l, r);
     }
 
 
@@ -53,27 +40,35 @@ public class QuickSortParallel extends Thread {
     }
 
     void quickSort(int arr[], int left, int right) {
+        if (right>left){
+        System.out.println("Thread name " + getName());
+        /*for (int i :arr){
+            System.out.println("INLOOP: " + i);
+        }*/
+
         int index = partition(arr, left, right);
-        if (left < index - 1){
-            right = index - 1;
-            QuickSortParallel qs1 = new QuickSortParallel(array, "a", left, right);
+        System.out.println("left: " + left + " right: " + right + " index: " + index );
+
+        //if (left < index - 1){
+            QuickSortParallel qs1 = new QuickSortParallel(array, left, index - 1);
             qs1.start();
-            /*try {
+       // }
+       // if (index < right) {
+            QuickSortParallel qs2 = new QuickSortParallel(array, index, right);
+            qs2.start();
+
+            try {
                 qs1.join();
             } catch (InterruptedException e) {
                 e.printStackTrace();
-            }*/
-        }
-
-        if (index < right) {
-            left = index;
-            QuickSortParallel qs2 = new QuickSortParallel(array, "b", left, right);
-            qs2.start();
-            /*try {
+            }
+            try {
                 qs2.join();
             } catch (InterruptedException e) {
                 e.printStackTrace();
-            }*/
+            }
+
+            // }
         }
 
     }

@@ -1,6 +1,7 @@
 public class QuickSort extends Thread {
 
     int[] array;
+
     QuickSort(int[] array) {
         this.array = array;
     }
