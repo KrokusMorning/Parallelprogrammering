@@ -58,22 +58,22 @@ public class QuickSortParallel extends Thread {
             right = index - 1;
             QuickSortParallel qs1 = new QuickSortParallel(array, "a", left, right);
             qs1.start();
-            try {
+            /*try {
                 qs1.join();
             } catch (InterruptedException e) {
                 e.printStackTrace();
-            }
+            }*/
         }
 
         if (index < right) {
             left = index;
             QuickSortParallel qs2 = new QuickSortParallel(array, "b", left, right);
             qs2.start();
-            try {
+            /*try {
                 qs2.join();
             } catch (InterruptedException e) {
                 e.printStackTrace();
-            }
+            }*/
         }
 
     }

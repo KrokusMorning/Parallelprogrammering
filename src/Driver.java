@@ -3,8 +3,9 @@ import java.util.*;
 public class Driver {
     public static void main(String[] args) {
 
-    int[] array = new int[10000000];
+    int[] array = new int[10000];
     Random random = new Random();
+    int processors = Runtime.getRuntime().availableProcessors();
 
         for (int i = 0; i < array.length; i++)
     {
@@ -35,6 +36,9 @@ public class Driver {
     }
         System.out.println("Execution time (parallel):  " + tp3);
         System.out.println("Execution time (sequntial): " + t3);
+        System.out.println("Array length: " + array.length);
+        System.out.println("Number of processors: " + processors);
+
         //17792370
         //16587925
 
