@@ -6,20 +6,17 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class TeeDriver {
-    public static void main(String[] args) throws IOException {
-        final String FILENAME = "/Users/ocean/Desktop/Concurrent Programming/Homework/src/Tee/TeeText.txt";
+    public static void main(String[] args) throws IOException, InterruptedException {
+        String text;
+        Tee tee = new Tee();
+        tee.start();
+        tee.join();
+        text = tee.text;
+        TeeStdOut teeStdOut = new TeeStdOut(text);
+        teeStdOut.start();
 
-        System.out.println("Enter text to write to file: ");
-        Scanner scan = new Scanner(System.in);
-        String content = scan.next();
-
-        BufferedWriter f = null;
-        f = new BufferedWriter(new FileWriter(FILENAME, true));
-        f.write(content);
-        f.close();
-
-        System.out.println(content);
-
+        TeeToFile teeToFile = new TeeToFile(text);
+        teeToFile.start();
     }
 }
 
