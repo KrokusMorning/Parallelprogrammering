@@ -1,9 +1,11 @@
+package QuickSort;
+
 import java.util.*;
 
-public class Driver {
+public class QsDriver {
     public static void main(String[] args) {
 
-    int[] array = new int[100000];
+    int[] array = new int[1000];
     int[] array2 = new int[array.length];
     Random random = new Random();
     int processors = Runtime.getRuntime().availableProcessors();
@@ -16,11 +18,11 @@ public class Driver {
 
 
 
-    for (int i :array){
+    /*for (int i :array){
         System.out.println("Unsorted array: " + i);
 
     }
-        System.out.println("-");
+        System.out.println("-");    */
 
 
 
@@ -31,13 +33,13 @@ public class Driver {
         long t2 = System.nanoTime();
         long t3 = t2-t1;
 
-        for (int i :array2){
+        /*for (int i :array2){
             System.out.println("Unsorted array: " + i);
-        }
+        }   */
 
         long tp1 = System.nanoTime();
-    QuickSortParallel qsp = new QuickSortParallel(array, 0, array.length-1);
-        qsp.quickSortP(array, 0, (array.length-1));
+    QuickSortParallel qsp = new QuickSortParallel(array2, 0, array.length-1);
+        qsp.quickSortP(array2, 0, (array.length-1));
         int[] arrayqsp = qsp.array;
 
         long tp2 = System.nanoTime();
@@ -45,12 +47,12 @@ public class Driver {
 
 
 
-    /*for (int i :arrayqsp){
+    for (int i :arrayqsp){
         System.out.println("Sorted array: " + i);
-    }                     */
+    }  
         System.out.println("Execution time (parallel):   " + tp3);
         System.out.println("Execution time (sequntial):  " + t3);
-        System.out.println("Percent faster : " + ((float)t3/(float)tp3)*100 + "%");
+        System.out.println("Percent faster : " + ((float)t3/(float)tp3) + " times faster.");
         System.out.println("Array length: " + array.length);
         System.out.println("Number of processors: " + processors);
 

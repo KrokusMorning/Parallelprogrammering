@@ -1,3 +1,5 @@
+package QuickSort;
+
 public class QuickSort extends Thread {
 
     int[] array;
