@@ -5,6 +5,8 @@ public class QuickSortParallel extends Thread {
     int[] array;
     int l;
     int r;
+    public static int threadcount = 1;
+    int processors = Runtime.getRuntime().availableProcessors();
 
 
     QuickSortParallel(int[] array, int left, int right) {
@@ -13,8 +15,16 @@ public class QuickSortParallel extends Thread {
         this.r = right;
     }
     public void run(){
-        quickSort(array, l, r);
+        quickSortP(array, l, r);
     }
+
+    void quickSortS(int arr[], int left, int right) {
+            int index = partition(arr, left, right);
+            if (left < index - 1)
+                quickSortS(arr, left, index - 1);
+            if (index < right)
+                quickSortS(arr, index, right);
+        }
 
 
     int partition(int arr[], int left, int right) {
@@ -39,38 +49,42 @@ public class QuickSortParallel extends Thread {
         return i;
     }
 
-    void quickSort(int arr[], int left, int right) {
-        if (right>left){
-        System.out.println("Thread name " + getName());
-        /*for (int i :arr){
-            System.out.println("INLOOP: " + i);
-        }*/
+    void quickSortP(int arr[], int left, int right) {
+        if (threadcount < processors){
+            int index = partition(arr, left, right);
+            System.out.println("Thread name " + getName());
+            System.out.println("left: " + left + " right: " + right + " index: " + index );
+            System.out.println("Thread count " + threadcount);
 
-        int index = partition(arr, left, right);
-        System.out.println("left: " + left + " right: " + right + " index: " + index );
-
-        //if (left < index - 1){
-            QuickSortParallel qs1 = new QuickSortParallel(array, left, index - 1);
-            qs1.start();
-       // }
-       // if (index < right) {
-            QuickSortParallel qs2 = new QuickSortParallel(array, index, right);
-            qs2.start();
-
-            try {
-                qs1.join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            if (left < index - 1){
+                threadcount++;
+                QuickSortParallel qs1 = new QuickSortParallel(array, left, index - 1);
+                qs1.start();
+                try {
+                    qs1.join();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
-            try {
-                qs2.join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            if (index < right){
+                threadcount++;
+                QuickSortParallel qs2 = new QuickSortParallel(array, index, right);
+                qs2.start();
+                try {
+                    qs2.join();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            else
+            {
+                if (left < index - 1)
+                    quickSortS(arr, left, index - 1);
+                if (index < right)
+                    quickSortS(arr, index, right);
+            }
             }
 
-            // }
         }
-
     }
-}
 

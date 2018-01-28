@@ -3,7 +3,7 @@ import java.util.*;
 public class Driver {
     public static void main(String[] args) {
 
-    int[] array = new int[1000];
+    int[] array = new int[100000];
     int[] array2 = new int[array.length];
     Random random = new Random();
     int processors = Runtime.getRuntime().availableProcessors();
@@ -36,8 +36,8 @@ public class Driver {
         }
 
         long tp1 = System.nanoTime();
-   QuickSortParallel qsp = new QuickSortParallel(array, 0, array.length-1);
-        qsp.quickSort(array, 0, (array.length-1));
+    QuickSortParallel qsp = new QuickSortParallel(array, 0, array.length-1);
+        qsp.quickSortP(array, 0, (array.length-1));
         int[] arrayqsp = qsp.array;
 
         long tp2 = System.nanoTime();
@@ -45,9 +45,9 @@ public class Driver {
 
 
 
-    for (int i :arrayqsp){
+    /*for (int i :arrayqsp){
         System.out.println("Sorted array: " + i);
-    }
+    }                     */
         System.out.println("Execution time (parallel):   " + tp3);
         System.out.println("Execution time (sequntial):  " + t3);
         System.out.println("Percent faster : " + ((float)t3/(float)tp3)*100 + "%");
