@@ -6,22 +6,17 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class TeeToFile extends Thread{
-    final String FILENAME = "/Users/ocean/Desktop/Concurrent Programming/Homework/src/Tee/TeeText.txt";
-    public String text;
+    TeeAction teeAction;
 
-    public TeeToFile(String text) {
-        this.text = text;
+    public TeeToFile(TeeAction teeAction) {
+        this.teeAction = teeAction;
     }
 
     public void run(){
-        System.out.println("Thread name " + getName());
-
-        BufferedWriter f = null;
+        //System.out.println("Thread name " + getName());
         try {
-            f = new BufferedWriter(new FileWriter(FILENAME, true));
-            f.write(this.text);
-            f.close();
-        } catch (IOException e) {
+            teeAction.fileOut();
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
 

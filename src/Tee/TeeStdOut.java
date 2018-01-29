@@ -2,13 +2,21 @@ package Tee;
 
 public class TeeStdOut extends Thread{
     public String text;
+    TeeAction teeAction;
 
-    public TeeStdOut(String text) {
-        this.text = text;
+    public TeeStdOut(TeeAction teeAction) {
+        this.teeAction = teeAction;
+       // this.text = text;
+
     }
 
     public void run(){
-        System.out.println("Thread name " + getName());
-        System.out.println(this.text);
+        try {
+            teeAction.stdOut();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        //System.out.println("Thread name " + getName());
+
     }
 }
