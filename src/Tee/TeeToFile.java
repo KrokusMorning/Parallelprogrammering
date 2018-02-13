@@ -1,9 +1,6 @@
 package Tee;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Scanner;
 
 public class TeeToFile extends Thread{
     TeeAction teeAction;
@@ -13,13 +10,12 @@ public class TeeToFile extends Thread{
     }
 
     public void run(){
-        //System.out.println("Thread name " + getName());
         try {
             teeAction.fileOut();
+        } catch (IOException e) {
+            e.printStackTrace();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
-
     }
 }

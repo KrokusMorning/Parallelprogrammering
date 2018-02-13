@@ -1,10 +1,5 @@
 package Tee;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Scanner;
-
 public class Tee extends Thread {
     TeeAction teeAction;
 
@@ -13,9 +8,7 @@ public class Tee extends Thread {
     }
 
     public void run(){
-        //System.out.println("Thread name " + getName());
         teeAction.input();
-
     }
 
 

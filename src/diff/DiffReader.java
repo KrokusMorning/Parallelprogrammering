@@ -8,25 +8,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DiffReader extends Thread{
-    public final String filepath;
-    BufferedReader br = null;
-    String linesArray[];
+    public final String filename;
+    String stringArr[];
 
-    public DiffReader(String filepath) {
-        this.filepath = filepath;
+    public DiffReader(String filename) {
+
+        this.filename = filename;
     }
 
     public void run(){
+        read();
+    }
+
+    public void read(){
         BufferedReader buffR = null;
         String str;
         List<String> list = new ArrayList<String>();
-
         try {
-            buffR = new BufferedReader(new FileReader(filepath));
+            buffR = new BufferedReader(new FileReader(filename));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-
         try {
             while((str = buffR.readLine()) != null){
                 list.add(str);
@@ -35,8 +37,7 @@ public class DiffReader extends Thread{
             e.printStackTrace();
         }
 
-        String[] stringArr = list.toArray(new String[0]);
-        linesArray = stringArr;
+        this.stringArr = list.toArray(new String[0]);
 
     }
 }

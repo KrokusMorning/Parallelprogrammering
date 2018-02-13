@@ -1,22 +1,20 @@
 package diff;
 
-public class DiffWriter extends Thread{
+public class DiffWriter {
     String array1[];
     String array2[];
-    int start = 0;
-    int stop = 0;
+    int length = 0;
 
-    public DiffWriter(String[] array1, String[] array2, int start, int stop) {
+
+    public DiffWriter(String[] array1, String[] array2) {
         this.array1 = array1;
         this.array2 = array2;
-        this.start = start;
-        this.stop = stop;
+        write();
     }
 
-    public void run() {
+    public void write() {
         StringBuilder sb1 = new StringBuilder();
         StringBuilder sb2 = new StringBuilder();
-        int length = 0;
         int diff = 0;
         int array1length = array1.length;
         int array2length = array2.length;
@@ -29,7 +27,7 @@ public class DiffWriter extends Thread{
             diff = array1length - length;
         }
 
-        for (int i = start; i < stop; i++) {
+        for (int i = 0; i < length; i++) {
             if (!array1[i].equals(array2[i])) {
                 sb1.append(array1[i]);
                 sb2.append(array2[i]);
@@ -37,7 +35,6 @@ public class DiffWriter extends Thread{
                 sb2.append(System.lineSeparator());
             }
         }
-        if(start == 0){
             if (array1length != length) {
                 for (int i = length; i < length + diff; i++) {
                     sb1.append(array1[i]);
@@ -49,11 +46,9 @@ public class DiffWriter extends Thread{
                     sb2.append(System.lineSeparator());
                 }
             }
-        }
-
-        /*String everything1 = sb1.toString();
+        String everything1 = sb1.toString();
         System.out.println(everything1);
         String everything2 = sb2.toString();
-        System.out.println(everything2);*/
+        System.out.println(everything2);
     }
 }
