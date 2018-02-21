@@ -15,7 +15,7 @@ public class Spaceship extends Thread{
         this.trips = trips;
     }
 
-    public void run(){
+   /* public void run(){
         for (int i = 0; i < trips; i++){
             fssMonitor.reFuel(nTankMax, qTankMax);
             qTank = qTankMax;
@@ -29,5 +29,25 @@ public class Spaceship extends Thread{
             qTank = 0;
         }
         System.out.println("\n" + Thread.currentThread().getName() + " finished.");
+    }*/
+
+    public void run(){
+        for (int i = 0; i < trips; i++){
+            try {
+                Thread.sleep((long)(Math.random() * 500));
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            fssMonitor.takePlace(nTankMax, qTankMax);
+            fssMonitor.reFuel(nTankMax, qTankMax);
+            try {
+                Thread.sleep((long)(Math.random() * 250));
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            fssMonitor.leavePlace();
+        }
+        System.out.println("\n" + Thread.currentThread().getName() + " finished.");
+
     }
 }

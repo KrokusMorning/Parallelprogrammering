@@ -15,12 +15,12 @@ public class HBDriver {
         BabyBird babyBird[] = new BabyBird[n];
 
         ParentBird parentBird = new ParentBird(nest);
-        parentBird.setName("ParentBird");
+        parentBird.setName("ParentBirdM");
         parentBird.start();
 
         for(int i = 0; i < n; i++){
             babyBird[i] = new BabyBird(nest);
-            babyBird[i].setName("BabyBird " + (i+1));
+            babyBird[i].setName("BabyBirdM " + (i+1));
             babyBird[i].start();
         }
 

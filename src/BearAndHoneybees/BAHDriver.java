@@ -13,7 +13,7 @@ public class BAHDriver {
         Honeybee honeybees[] = new Honeybee[n];
 
         Bear bear = new Bear(honeyPot);
-        bear.setName("Bear");
+        bear.setName("BearM");
         bear.start();
 
         for(int i = 0; i < n; i++){

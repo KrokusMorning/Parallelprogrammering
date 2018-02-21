@@ -29,7 +29,7 @@ public class BirdsNest {
         while(true){
             turn.acquire();
             if(worms.availablePermits() == 0){
-                System.out.println("\n" + Thread.currentThread().getName() + " chirps for ParentBird to get more worms.");
+                System.out.println("\n" + Thread.currentThread().getName() + " chirps for ParentBirdM to get more worms.");
                 chirp.release();}
             worms.acquire();
             System.out.println(Thread.currentThread().getName() + " takes a worm from the dish. There is now " +

@@ -1,6 +1,6 @@
 package FuelSpaceStation;
 
-public class Fuelship extends Thread{
+public class Fuelship extends Thread {
     FSSMonitor fssMonitor;
     int nTankMax;
     int qTankMax;
@@ -23,6 +23,13 @@ public class Fuelship extends Thread{
 
     public void run() {
         for (int i = 0; i < trips; i++){
+            try {
+                Thread.sleep((long)(Math.random() * 500));
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            fssMonitor.takePlace(-1, -1);
+            System.out.println("\n" + Thread.currentThread().getName() + " waits. n:" + nCargoMax + "q:" + qCargoMax);
             fssMonitor.deployFuelCargoN(nCargoMax);
             nCargo = 0;
             fssMonitor.deployFuelCargoQ(qCargoMax);
@@ -31,10 +38,19 @@ public class Fuelship extends Thread{
             qTank = qTankMax;
             nTank = nTankMax;
             try {
-                Thread.sleep((long)(Math.random() * 1000));
+                Thread.sleep((long)(Math.random() * 250));
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+            fssMonitor.leavePlace();
+            fssMonitor.takePlace(nTankMax, qTankMax);
+            fssMonitor.reFuel(nTankMax, qTankMax);
+            try {
+                Thread.sleep((long)(Math.random() * 250));
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            fssMonitor.leavePlace();
             nCargo = nCargoMax;
             qCargo = qCargoMax;
             nTank = 0;
